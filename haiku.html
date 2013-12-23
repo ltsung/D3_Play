@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <title>haiku</title>
   <style>
+    body {
+	  font-family: Helvetica, sans-serif;
+	  font-weight: 100;
+    }
   </style>
 </head>
 <body>
@@ -50,31 +54,37 @@ var matrix = [
   [["with"], ["de","sign"], ["and"], ["code."]]
 ];
 
-var td = d3.select(".haiku")
+var line = d3.select(".haiku")
     .selectAll(".line")
       .data(matrix)   
       .enter().append("div")
       .attr("class", "line")
-      .style("margin-bottom", "15px")
-    .selectAll(".word")
+      .style("margin-bottom", "15px");
+      
+var word = line.selectAll(".word")
       .data(function(d, i) { return d; })
       .enter().append("span")
       .attr("class", "word")
-      .style("padding", "3px")
-    .selectAll(".syllable")
+      .style("padding", "3px");
+      
+var syllable = word.selectAll(".syllable")
       .data(function(d, i) { return d; })
       .enter().append("span")
       .attr("class", "syllable")
-      .text(function(d,i) { return d; })
+      .text(function(d,i) { 
+        return d;
+      })
       .style("margin-right", "2px")
-      .style("border-bottom", "1px solid #CCC")      
+      .style("border-bottom", "1px solid #CCC")
       .insert("span")
         .attr("class", "syl-index")
         .style("position", "relative")
         .style("top", "12px")
         .style("font-size", "7px")
-        .text(function(d, i) { 
-          return i+1; 
+        .text(function(d, i, j) {
+          console.log(matrix);
+          //var index = i + j + 1;
+	      //return index;
         });
   
 </script>
