@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>haiku</title>
+  <style>
+  </style>
+</head>
+<body>
+<!--
+<table>
+  <thead>
+    <tr><td>  A</td><td>  B</td><td>  C</td><td>  D</td></tr>
+  </thead>
+  <tbody>
+    <tr><td>  </td><td>  </td><td>  </td><td>  </td></tr>
+    <tr><td>  </td><td>  </td><td>  </td><td>  </td></tr>
+  </tbody>
+</table>
+-->
+
+<div class="haiku">
+</div>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+/*
+var matrix = [
+  [ "this",  "is",  "me",  "testing"],
+  [ "this",  "out",  "more",  "regularly"]
+];
+
+var td = d3.select(".haiku")
+    .selectAll(".line")
+      .data(matrix)   
+      .enter().append("div")
+      .attr("class", "line")
+    .selectAll(".word")
+      .data(function(d, i) { return d; })
+      .enter().append("span")
+      .attr("class", "word")
+      .text(function(d,i) { return d; })
+      .style("padding", "3px"); 
+*/
+
+var matrix = [
+  [["I"], ["re","i","ma","gine"]],
+  [["us","er"], ["ex", "pe", "ri", "en", "ces"]],
+  [["with"], ["de","sign"], ["and"], ["code."]]
+];
+
+var td = d3.select(".haiku")
+    .selectAll(".line")
+      .data(matrix)   
+      .enter().append("div")
+      .attr("class", "line")
+      .style("margin-bottom", "15px")
+    .selectAll(".word")
+      .data(function(d, i) { return d; })
+      .enter().append("span")
+      .attr("class", "word")
+      .style("padding", "3px")
+    .selectAll(".syllable")
+      .data(function(d, i) { return d; })
+      .enter().append("span")
+      .attr("class", "syllable")
+      .text(function(d,i) { return d; })
+      .style("margin-right", "2px")
+      .style("border-bottom", "1px solid #CCC")      
+      .insert("span")
+        .attr("class", "syl-index")
+        .style("position", "relative")
+        .style("top", "12px")
+        .style("font-size", "7px")
+        .text(function(d, i) { 
+          return i+1; 
+        });
+  
+</script>
+ 
+</body>
+</html>
