@@ -24,10 +24,8 @@ Author: Lauren Tsung
 <h2 class="haiku">
 </h2>
 
+<!--
 <h2 class="haiku">
-</h2>
-
-<h2 class="haiku ">
 </h2>
 
 <h2 class="haiku">
@@ -35,6 +33,10 @@ Author: Lauren Tsung
 
 <h2 class="haiku">
 </h2>
+
+<h2 class="haiku">
+</h2>
+-->
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -60,7 +62,7 @@ var word = line.selectAll(".word")
   .style("padding", "3px");
 
 var sylIndex = 0;
-var lastLineLength = 0;      
+//var lastLineLength = 0;      
 var syllable = word.selectAll(".syllable")
   .data(function(d, i) { return d; })
   .enter().append("span")
@@ -81,13 +83,14 @@ var syllable = word.selectAll(".syllable")
         case 1:
           return sylIndex-5; 
         case 2:
-          ++lastLineLength;
-          var indexValue = sylIndex-12;
-          if (lastLineLength > haiku[2].length) {
-            sylIndex = 0;
-            lastLineLength = 0;	          
-          }
-          return indexValue;
+         // ++lastLineLength;
+         // var indexValue = sylIndex-12;
+         // if (lastLineLength > haiku[2].length) {
+         //   sylIndex = 0;
+         //   lastLineLength = 0;	          
+         // }
+         // return indexValue;
+           return sylIndex-12;
         default:
           return sylIndex;
       }
@@ -97,7 +100,7 @@ var word = d3.selectAll(".haiku .line .word");
 var syllable = d3.selectAll(".haiku .line .word .syllable");
 var sylIndex = d3.selectAll(".haiku .line .word .syl-index");
 
-d3.selectAll(".haiku")
+d3.select(".haiku")
   .on("mouseover", function() {
     syllable.transition().ease("linear")
       .duration(100)
