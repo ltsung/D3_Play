@@ -8,6 +8,11 @@
 	  font-family: Helvetica, sans-serif;
 	  font-weight: 100;
     }
+    
+    .hidden {
+	  display: none;
+    }
+        
   </style>
 </head>
 <body>
@@ -41,7 +46,7 @@ var word = line.selectAll(".word")
       .data(function(d, i) { return d; })
       .enter().append("span")
       .attr("class", "word")
-      .style("padding", "5px");
+      .style("padding", "3px");
 
 var sylIndex = 0;      
 var syllable = word.selectAll(".syllable")
@@ -51,19 +56,9 @@ var syllable = word.selectAll(".syllable")
       .text(function(d,i) { 
         return d;
       })
-      .style("margin-right", "4px")
-      .style("border-bottom", "1px solid #CCC")
       .insert("span")
-        .attr("class", "syl-index")
-        .style("position", "relative")
-        .style("top", "16px")
-        .style("left", function(d) {
-          var width = (this.parentNode).offsetWidth;
-          width /= 2;
-          width *= -1;
-          return width + "px";  
-        })
-        .style("font-size", "7px")
+        .attr("class", "syl-index hidden")
+
         .text(function(d, i, j) {
           var line = ((this.parentNode).parentNode).parentNode;
           var lineIndex = parseInt(line.getAttribute("data-index"));
@@ -80,6 +75,41 @@ var syllable = word.selectAll(".syllable")
 	          return sylIndex;
           }
         });
+
+var word = d3.selectAll(".haiku .line").selectAll(".word");
+var syllable = d3.selectAll(".haiku .line .word").selectAll(".syllable");
+var sylIndex = d3.selectAll(".haiku .line .word").selectAll(".syl-index");
+
+d3.select(".haiku")
+  .on("mouseover", function() {
+    syllable.transition().ease("linear")
+      .duration(100)
+      .style("margin-right", "4px")
+      .style("border-bottom", "1px solid #CCC");
+         
+    sylIndex.attr("class", "syl-index")
+      .style("position", "relative")
+      .style("top", "16px")
+      .style("left", function(d) {
+        var width = (this.parentNode).offsetWidth;
+        width /= 2;
+        width *= -1;
+        return width + "px";  
+      })
+      .style("font-size", "7px");
+  })
+  .on("mouseout", function() {
+    sylIndex.attr("class", "syl-index hidden")
+      .style("position", "relative")
+      .style("top", "0")
+      .style("left", "0")
+      .style("font-size", "7px");
+    
+    syllable.transition().ease("linear")
+      .duration(300)
+      .style("margin-right", "0px")
+      .style("border-bottom", "none");
+  });
 </script>
  
 </body>
