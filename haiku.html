@@ -1,8 +1,13 @@
+<!--
+A simple haiku visualizer.
+
+Author: Lauren Tsung
+-->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>haiku</title>
+  <title>Haiku Visualized</title>
   <style>
     h2 {
 	  font-family: Helvetica, sans-serif;
@@ -12,7 +17,6 @@
     .hidden {
 	  display: none;
     }
-        
   </style>
 </head>
 <body>
@@ -20,10 +24,17 @@
 <h2 class="haiku">
 </h2>
 
-<!--
-<div class="haiku two">
-</div>
--->
+<h2 class="haiku">
+</h2>
+
+<h2 class="haiku ">
+</h2>
+
+<h2 class="haiku">
+</h2>
+
+<h2 class="haiku">
+</h2>
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -35,52 +46,58 @@ var haiku = [
 ];
 
 var line = d3.selectAll(".haiku")
-    .selectAll(".line")
-      .data(haiku)   
-      .enter().append("div")
-      .attr("class", "line")
-      .attr("data-index", function (d, i) { return i; })
-      .style("margin-bottom", "15px");
-      
+  .selectAll(".line")
+    .data(haiku)   
+    .enter().append("div")
+    .attr("class", "line")
+    .attr("data-index", function (d, i) { return i; })
+    .style("margin-bottom", "15px");
+  
 var word = line.selectAll(".word")
-      .data(function(d, i) { return d; })
-      .enter().append("span")
-      .attr("class", "word")
-      .style("padding", "3px");
+  .data(function(d, i) { return d; })
+  .enter().append("span")
+  .attr("class", "word")
+  .style("padding", "3px");
 
-var sylIndex = 0;      
+var sylIndex = 0;
+var lastLineLength = 0;      
 var syllable = word.selectAll(".syllable")
-      .data(function(d, i) { return d; })
-      .enter().append("span")
-      .attr("class", "syllable")
-      .text(function(d,i) { 
-        return d;
-      })
-      .insert("span")
-        .attr("class", "syl-index hidden")
-
-        .text(function(d, i, j) {
-          var line = ((this.parentNode).parentNode).parentNode;
-          var lineIndex = parseInt(line.getAttribute("data-index"));
-          sylIndex++;
-          
-          switch(lineIndex) {
-	        case 0:
-	          return sylIndex;
-	        case 1:
-	          return sylIndex-5; 
-	        case 2:
-	          return sylIndex-12;
-	        default:
-	          return sylIndex;
+  .data(function(d, i) { return d; })
+  .enter().append("span")
+  .attr("class", "syllable")
+  .text(function(d,i) { 
+    return d;
+  })
+  .insert("span")
+    .attr("class", "syl-index hidden")
+    .text(function(d, i, j) {
+      var line = ((this.parentNode).parentNode).parentNode;
+      var lineIndex = parseInt(line.getAttribute("data-index"));
+      ++sylIndex;
+      
+      switch(lineIndex) {
+        case 0:
+          return sylIndex;
+        case 1:
+          return sylIndex-5; 
+        case 2:
+          ++lastLineLength;
+          var indexValue = sylIndex-12;
+          if (lastLineLength > haiku[2].length) {
+            sylIndex = 0;
+            lastLineLength = 0;	          
           }
-        });
+          return indexValue;
+        default:
+          return sylIndex;
+      }
+    });
 
 var word = d3.selectAll(".haiku .line .word");
 var syllable = d3.selectAll(".haiku .line .word .syllable");
 var sylIndex = d3.selectAll(".haiku .line .word .syl-index");
 
-d3.select(".haiku")
+d3.selectAll(".haiku")
   .on("mouseover", function() {
     syllable.transition().ease("linear")
       .duration(100)
