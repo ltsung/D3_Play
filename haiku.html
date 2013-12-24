@@ -76,9 +76,9 @@ var syllable = word.selectAll(".syllable")
           }
         });
 
-var word = d3.selectAll(".haiku .line").selectAll(".word");
-var syllable = d3.selectAll(".haiku .line .word").selectAll(".syllable");
-var sylIndex = d3.selectAll(".haiku .line .word").selectAll(".syl-index");
+var word = d3.selectAll(".haiku .line .word");
+var syllable = d3.selectAll(".haiku .line .word .syllable");
+var sylIndex = d3.selectAll(".haiku .line .word .syl-index");
 
 d3.select(".haiku")
   .on("mouseover", function() {
