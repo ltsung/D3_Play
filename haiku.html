@@ -42,7 +42,8 @@ var word = line.selectAll(".word")
       .enter().append("span")
       .attr("class", "word")
       .style("padding", "5px");
-      
+
+var sylIndex = 0;      
 var syllable = word.selectAll(".syllable")
       .data(function(d, i) { return d; })
       .enter().append("span")
@@ -55,14 +56,32 @@ var syllable = word.selectAll(".syllable")
       .insert("span")
         .attr("class", "syl-index")
         .style("position", "relative")
-        .style("top", "12px")
+        .style("top", "14px")
         .style("font-size", "7px")
         .text(function(d, i, j) {
           var line = ((this.parentNode).parentNode).parentNode;
-          var lineIndex = line.getAttribute("data-index");
+          var lineIndex = parseInt(line.getAttribute("data-index"));
           
-          console.log(lineIndex);
+          sylIndex++;
           
+          switch(lineIndex) {
+	        case 0:
+	          return sylIndex;
+	        case 1:
+	          return sylIndex-5;
+	        
+	        case 2:
+	          return sylIndex-12;
+	          
+	        default:
+	          return sylIndex;
+          }
+          
+          
+          
+          
+          
+          //return i+j+1;
           
           //var index = i + j + 1;
 	      //return index;
