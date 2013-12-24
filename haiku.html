@@ -56,29 +56,30 @@ var syllable = word.selectAll(".syllable")
       .insert("span")
         .attr("class", "syl-index")
         .style("position", "relative")
-        .style("top", "14px")
+        .style("top", "16px")
+        .style("left", function(d) {
+          var width = (this.parentNode).offsetWidth;
+          width /= 2;
+          width *= -1;
+          return width + "px";  
+        })
         .style("font-size", "7px")
         .text(function(d, i, j) {
           var line = ((this.parentNode).parentNode).parentNode;
           var lineIndex = parseInt(line.getAttribute("data-index"));
-          
           sylIndex++;
           
           switch(lineIndex) {
 	        case 0:
 	          return sylIndex;
 	        case 1:
-	          return sylIndex-5;
-	        
+	          return sylIndex-5; 
 	        case 2:
 	          return sylIndex-12;
-	          
 	        default:
 	          return sylIndex;
           }
-          
         });
-  
 </script>
  
 </body>
