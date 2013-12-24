@@ -4,68 +4,44 @@
   <meta charset="utf-8">
   <title>haiku</title>
   <style>
-    body {
+    h2 {
 	  font-family: Helvetica, sans-serif;
 	  font-weight: 100;
     }
   </style>
 </head>
 <body>
-<!--
-<table>
-  <thead>
-    <tr><td>  A</td><td>  B</td><td>  C</td><td>  D</td></tr>
-  </thead>
-  <tbody>
-    <tr><td>  </td><td>  </td><td>  </td><td>  </td></tr>
-    <tr><td>  </td><td>  </td><td>  </td><td>  </td></tr>
-  </tbody>
-</table>
--->
 
-<div class="haiku">
+<h2 class="haiku">
+</h2>
+
+<!--
+<div class="haiku two">
 </div>
+-->
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 
-/*
-var matrix = [
-  [ "this",  "is",  "me",  "testing"],
-  [ "this",  "out",  "more",  "regularly"]
-];
-
-var td = d3.select(".haiku")
-    .selectAll(".line")
-      .data(matrix)   
-      .enter().append("div")
-      .attr("class", "line")
-    .selectAll(".word")
-      .data(function(d, i) { return d; })
-      .enter().append("span")
-      .attr("class", "word")
-      .text(function(d,i) { return d; })
-      .style("padding", "3px"); 
-*/
-
-var matrix = [
+var haiku = [
   [["I"], ["re","i","ma","gine"]],
   [["us","er"], ["ex", "pe", "ri", "en", "ces"]],
   [["with"], ["de","sign"], ["and"], ["code."]]
 ];
 
-var line = d3.select(".haiku")
+var line = d3.selectAll(".haiku")
     .selectAll(".line")
-      .data(matrix)   
+      .data(haiku)   
       .enter().append("div")
       .attr("class", "line")
+      .attr("data-index", function (d, i) { return i; })
       .style("margin-bottom", "15px");
       
 var word = line.selectAll(".word")
       .data(function(d, i) { return d; })
       .enter().append("span")
       .attr("class", "word")
-      .style("padding", "3px");
+      .style("padding", "5px");
       
 var syllable = word.selectAll(".syllable")
       .data(function(d, i) { return d; })
@@ -74,7 +50,7 @@ var syllable = word.selectAll(".syllable")
       .text(function(d,i) { 
         return d;
       })
-      .style("margin-right", "2px")
+      .style("margin-right", "4px")
       .style("border-bottom", "1px solid #CCC")
       .insert("span")
         .attr("class", "syl-index")
@@ -82,7 +58,12 @@ var syllable = word.selectAll(".syllable")
         .style("top", "12px")
         .style("font-size", "7px")
         .text(function(d, i, j) {
-          console.log(matrix);
+          var line = ((this.parentNode).parentNode).parentNode;
+          var lineIndex = line.getAttribute("data-index");
+          
+          console.log(lineIndex);
+          
+          
           //var index = i + j + 1;
 	      //return index;
         });
