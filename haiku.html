@@ -23,25 +23,6 @@ Author: Lauren Tsung
 </head>
 <body>
 
-<div>
-  <h2></h2>	
-</div>
-
-<div>
-  <div>
-    <h2></h2>		  
-  </div>
-</div>
-
-<div>
-  <h2></h2>	
-</div>
-
-<div>
-  <h2></h2>	
-</div>
-
-
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 
@@ -71,7 +52,7 @@ var haikus = [
 
 var haiku = d3.select("body").selectAll("h2")
   .data(haikus)
-  //.enter().append("h2")
+  .enter().append("h2")
   .attr("class", "haiku");
 
 var line = haiku.selectAll(".haiku .line")
