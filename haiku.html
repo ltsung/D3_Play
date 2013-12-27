@@ -21,9 +21,6 @@ Author: Lauren Tsung
 </head>
 <body>
 
-<h2 class="haiku">
-</h2>
-
 <!--
 <h2 class="haiku">
 </h2>
@@ -42,32 +39,60 @@ Author: Lauren Tsung
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 
-var haiku = [
-
-  [["I"], ["re","i","ma","gine"]],
-  [["us","er"], ["ex", "pe", "ri", "en", "ces"]],
-  [["with"], ["de","sign"], ["and"], ["code."]]
-
-  /*  
-
-  [["I"], ["share"], ["my"], ["les", "sons"]],
-  [["in"], ["U", "X"], ["pro", "to", "ty", "ping"]],
-  [["to"], ["prompt"], ["re", "flec", "tion"]]
-  
-  [["I"], ["solve"], ["for"], ["pro", "blems"]],
-  [["that"], ["can"], ["scale"], ["and"], ["mo", "ne", "tize"]],
-  [["a", "cross"], ["de", "vi", "ces"]]
-  
-  [["My"], ["in", "spi", "ra", "tion"]],
-  [["from"], ["e", "ve", "ry", "day"], ["mo", "ments"]],
-  [["drives"], ["my"], ["per", "spec", "tive"]]
-
-  */
+/*
+var megaArray = [
+  [
+    ["A - 1"],
+    ["B - 1"]
+  ],
+  [
+    ["A - 2"],
+    ["B - 2"],
+    ["C - 2"]
+  ]
 ];
 
-var line = d3.selectAll(".haiku")
-  .selectAll(".line")
-    .data(haiku)   
+var bigArray = d3.selectAll("body h2")
+  .data(megaArray)
+  .enter().append("h2");
+
+var array = bigArray.selectAll("div")
+  .data(function(d) { return d; })
+  .enter().append("div")
+  .text(function(d) {return d; });
+*/
+
+var haikus = [
+  [
+    [["I"], ["re","i","ma","gine"]],
+    [["us","er"], ["ex", "pe", "ri", "en", "ces"]],
+    [["with"], ["de","sign"], ["and"], ["code."]]
+  ],
+  [
+    [["I"], ["share"], ["my"], ["les", "sons"]],
+    [["in"], ["U", "X"], ["pro", "to", "ty", "ping"]],
+    [["to"], ["prompt"], ["re", "flec", "tion"]]
+  ],
+  [
+    [["I"], ["solve"], ["for"], ["pro", "blems"]],
+    [["that"], ["can"], ["scale"], ["and"], ["mo", "ne", "tize"]],
+    [["a", "cross"], ["de", "vi", "ces"]]
+  ],
+  [
+    [["My"], ["in", "spi", "ra", "tion"]],
+    [["from"], ["e", "ve", "ry", "day"], ["mo", "ments"]],
+    [["drives"], ["my"], ["per", "spec", "tive"]]
+  ]
+];
+
+
+var haikuSet = d3.selectAll("body h2")
+  .data(haikus)
+  .enter().append("h2")
+  .attr("class", "haiku");
+
+var line = haikuSet.selectAll(".haiku .line")
+    .data(function(d) {return d;})   
     .enter().append("div")
     .attr("class", "line")
     .attr("data-index", function (d, i) { return i; })
@@ -148,6 +173,8 @@ d3.select(".haiku")
       .style("margin-right", "0px")
       .style("border-bottom", "none");
   });
+
+  
 </script>
  
 </body>
