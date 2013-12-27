@@ -86,12 +86,12 @@ var haikus = [
 ];
 
 
-var haikuSet = d3.selectAll("body h2")
+var haiku = d3.selectAll("body h2")
   .data(haikus)
   .enter().append("h2")
   .attr("class", "haiku");
 
-var line = haikuSet.selectAll(".haiku .line")
+var line = haiku.selectAll(".haiku .line")
     .data(function(d) {return d;})   
     .enter().append("div")
     .attr("class", "line")
@@ -143,14 +143,14 @@ var word = d3.selectAll(".haiku .line .word");
 var syllable = d3.selectAll(".haiku .line .word .syllable");
 var sylIndex = d3.selectAll(".haiku .line .word .syl-index");
 
-d3.select(".haiku")
-  .on("mouseover", function() {
-    syllable.transition().ease("linear")
+haiku.on("mouseover", function() {
+   
+   d3.select(this).selectAll(".syllable").transition().ease("linear")
       .duration(100)
       .style("margin-right", "4px")
       .style("border-bottom", "1px solid #CCC");
          
-    sylIndex.attr("class", "syl-index")
+   d3.select(this).selectAll(".syl-index").attr("class", "syl-index")
       .style("position", "relative")
       .style("top", "16px")
       .style("left", function(d) {
@@ -162,18 +162,17 @@ d3.select(".haiku")
       .style("font-size", "7px");
   })
   .on("mouseout", function() {
-    sylIndex.attr("class", "syl-index hidden")
+    d3.select(this).selectAll(".syl-index").attr("class", "syl-index hidden")
       .style("position", "relative")
       .style("top", "0")
       .style("left", "0")
       .style("font-size", "7px");
     
-    syllable.transition().ease("linear")
+    d3.select(this).selectAll(".syllable").transition().ease("linear")
       .duration(300)
       .style("margin-right", "0px")
       .style("border-bottom", "none");
   });
-
   
 </script>
  
